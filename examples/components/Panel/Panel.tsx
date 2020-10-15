@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Animated,
   Dimensions,
   PanResponder,
-  ScrollView,
+  SafeAreaView,
   StyleSheet,
   TouchableHighlight,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
-import { Bar } from './Bar';
-import { Close } from './Close';
+import {Bar} from './Bar';
+import {Close} from './Close';
 
 let NOTCH_PREVENTION = 14;
 let TOP_EXTRA_SPACE = 100 + NOTCH_PREVENTION;
@@ -288,16 +288,7 @@ class SwipeablePanel extends Component<
               onPress={this.props.onClose}
             />
           )}
-          <ScrollView
-            onTouchStart={() => {
-              return false;
-            }}
-            onTouchEnd={() => {
-              return false;
-            }}
-            contentContainerStyle={
-              SwipeablePanelStyles.scrollViewContentContainerStyle
-            }>
+          <SafeAreaView style={SwipeablePanelStyles.contentWrapperStyle}>
             {this.state.canScroll ? (
               <TouchableHighlight>
                 <React.Fragment>{this.props.children}</React.Fragment>
@@ -305,7 +296,7 @@ class SwipeablePanel extends Component<
             ) : (
               this.props.children
             )}
-          </ScrollView>
+          </SafeAreaView>
         </Animated.View>
       </Animated.View>
     ) : null;
@@ -345,8 +336,8 @@ const SwipeablePanelStyles = StyleSheet.create({
     elevation: 1,
     zIndex: 2,
   },
-  scrollViewContentContainerStyle: {
-    width: '100%',
+  contentWrapperStyle: {
+    flex: 1,
   },
 });
 
