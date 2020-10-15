@@ -5,7 +5,6 @@ import {
   PanResponder,
   SafeAreaView,
   StyleSheet,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -49,7 +48,6 @@ type SwipeablePanelState = {
   status: number;
   isActive: Boolean;
   showComponent: Boolean;
-  canScroll: Boolean;
   opacity: Animated.Value;
   pan: any;
   orientation: 'portrait' | 'landscape';
@@ -72,7 +70,6 @@ class SwipeablePanel extends Component<
       status: STATUS.CLOSED,
       isActive: false,
       showComponent: false,
-      canScroll: false,
       opacity: new Animated.Value(0),
       pan: new Animated.ValueXY({x: 0, y: FULL_HEIGHT}),
       orientation: FULL_HEIGHT >= FULL_WIDTH ? 'portrait' : 'landscape',
@@ -225,8 +222,7 @@ class SwipeablePanel extends Component<
         this.setState({
           showComponent: false,
         });
-      } else
-        this.setState({canScroll: newStatus == STATUS.LARGE ? true : false});
+      }
     });
   };
 
@@ -289,13 +285,7 @@ class SwipeablePanel extends Component<
             />
           )}
           <SafeAreaView style={SwipeablePanelStyles.contentWrapperStyle}>
-            {this.state.canScroll ? (
-              <TouchableHighlight>
-                <React.Fragment>{this.props.children}</React.Fragment>
-              </TouchableHighlight>
-            ) : (
-              this.props.children
-            )}
+            {this.props.children}
           </SafeAreaView>
         </Animated.View>
       </Animated.View>

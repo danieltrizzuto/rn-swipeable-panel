@@ -5,9 +5,8 @@ import {
   PanResponder,
   ScrollView,
   StyleSheet,
-  TouchableHighlight,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
 import { Bar } from './Bar';
 import { Close } from './Close';
@@ -49,7 +48,6 @@ type SwipeablePanelState = {
   status: number;
   isActive: boolean;
   showComponent: boolean;
-  canScroll: boolean;
   opacity: Animated.Value;
   pan: any;
   orientation: 'portrait' | 'landscape';
@@ -69,7 +67,6 @@ class SwipeablePanel extends React.Component<SwipeablePanelProps, SwipeablePanel
       status: STATUS.CLOSED,
       isActive: false,
       showComponent: false,
-      canScroll: false,
       opacity: new Animated.Value(0),
       pan: new Animated.ValueXY({ x: 0, y: FULL_HEIGHT }),
       orientation: FULL_HEIGHT >= FULL_WIDTH ? 'portrait' : 'landscape',
@@ -193,7 +190,7 @@ class SwipeablePanel extends React.Component<SwipeablePanelProps, SwipeablePanel
         this.setState({
           showComponent: false,
         });
-      } else this.setState({ canScroll: newStatus === STATUS.LARGE ? true : false });
+      }
     });
   };
 
@@ -260,13 +257,7 @@ class SwipeablePanel extends React.Component<SwipeablePanelProps, SwipeablePanel
             }}
             contentContainerStyle={SwipeablePanelStyles.scrollViewContentContainerStyle}
           >
-            {this.state.canScroll ? (
-              <TouchableHighlight>
-                <React.Fragment>{this.props.children}</React.Fragment>
-              </TouchableHighlight>
-            ) : (
-              this.props.children
-            )}
+            {this.props.children}
           </ScrollView>
         </Animated.View>
       </Animated.View>
