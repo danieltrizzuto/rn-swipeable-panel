@@ -3,7 +3,7 @@ import {
   Animated,
   Dimensions,
   PanResponder,
-  ScrollView,
+  SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -248,17 +248,9 @@ class SwipeablePanel extends React.Component<SwipeablePanelProps, SwipeablePanel
           {this.props.showCloseButton && (
             <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
           )}
-          <ScrollView
-            onTouchStart={() => {
-              return false;
-            }}
-            onTouchEnd={() => {
-              return false;
-            }}
-            contentContainerStyle={SwipeablePanelStyles.scrollViewContentContainerStyle}
-          >
+          <SafeAreaView contentContainerStyle={SwipeablePanelStyles.contentWrapperStyle}>
             {this.props.children}
-          </ScrollView>
+          </SafeAreaView>
         </Animated.View>
       </Animated.View>
     ) : null;
@@ -298,8 +290,8 @@ const SwipeablePanelStyles = StyleSheet.create({
     elevation: 1,
     zIndex: 2,
   },
-  scrollViewContentContainerStyle: {
-    width: '100%',
+  contentWrapperStyle: {
+    flex: 1,
   },
 });
 
