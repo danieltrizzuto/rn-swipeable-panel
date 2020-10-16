@@ -248,9 +248,7 @@ class SwipeablePanel extends React.Component<SwipeablePanelProps, SwipeablePanel
           {this.props.showCloseButton && (
             <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
           )}
-          <SafeAreaView contentContainerStyle={SwipeablePanelStyles.contentWrapperStyle}>
-            {this.props.children}
-          </SafeAreaView>
+          <SafeAreaView style={SwipeablePanelStyles.contentWrapperStyle}>{this.props.children}</SafeAreaView>
         </Animated.View>
       </Animated.View>
     ) : null;
